@@ -111,7 +111,11 @@ export default function App() {
 
         {/* Zone 1 — Live Devices */}
         <section>
-          <SectionHeader title="Zone 1 — Active Hardware" badge="LIVE" badgeColor="emerald" />
+          <SectionHeader
+            title="Zone 1 — Active Hardware"
+            badge={gatewayStatus?.status === 'ONLINE' ? 'LIVE' : 'OFFLINE'}
+            badgeColor={gatewayStatus?.status === 'ONLINE' ? 'emerald' : 'slate'}
+          />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             <RangeSensorCard
               payload={sensorPayload}
@@ -184,11 +188,13 @@ function StatCard({ label, value, sub, ok, warn }: { label: string; value: numbe
   );
 }
 
-function SectionHeader({ title, badge, badgeColor }: { title: string; badge?: string; badgeColor?: 'emerald' | 'amber' | 'sky' }) {
+function SectionHeader({ title, badge, badgeColor }: { title: string; badge?: string; badgeColor?: 'emerald' | 'amber' | 'sky' | 'slate' }) {
   const badgeClass = badgeColor === 'emerald'
     ? 'text-emerald-400 bg-emerald-400/10'
     : badgeColor === 'amber'
     ? 'text-amber-400 bg-amber-400/10'
+    : badgeColor === 'slate'
+    ? 'text-slate-400 bg-slate-500/10'
     : 'text-sky-400 bg-sky-400/10';
 
   return (

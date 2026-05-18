@@ -84,17 +84,20 @@ export function useMqtt() {
 
       if (topic.endsWith('/events') || topic.endsWith('/live')) {
         const payload = parsed as unknown as SensorPayload;
+        const ts = payload.timestamp ? new Date(payload.timestamp) : new Date();
         setState(prev => ({
           ...prev,
           sensorPayload: payload,
           sensorStatus: payload.status ?? 'UNKNOWN',
-          lastSeen: new Date(),
+          lastSeen: ts,
         }));
       } else if (topic.endsWith('/heartbeat')) {
+        const hb = parsed as unknown as HeartbeatPayload;
+        const ts = hb.timestamp ? new Date(hb.timestamp) : new Date();
         setState(prev => ({
           ...prev,
-          heartbeat: parsed as unknown as HeartbeatPayload,
-          lastSeen: new Date(),
+          heartbeat: hb,
+          lastSeen: ts,
         }));
       } else if (topic.endsWith('/status')) {
         const gwStatus = parsed as unknown as GatewayStatusPayload;
