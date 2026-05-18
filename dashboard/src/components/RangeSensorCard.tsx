@@ -72,7 +72,7 @@ export function RangeSensorCard({ payload, status, history, lastSeen }: Props) {
               <Tooltip
                 contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 }}
                 labelFormatter={() => ''}
-                formatter={(v: number) => [`${v} cm`, 'Distance']}
+                formatter={(v) => [`${v} cm`, 'Distance']}
               />
               <Area
                 type="monotone"
